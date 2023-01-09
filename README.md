@@ -53,3 +53,5 @@
     5. Request API from Postman or other
 
     Saga Orchestrator Pattern :
+    ![OrchestratorSaga](https://github.com/mftakhullaziz/event-driven-orchestration-app/blob/main/docs/orchestration-saga.jpg)
+    
