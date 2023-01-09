@@ -1,0 +1,21 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: spring-cloud-server-eureka
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/postgres
+    username: user
+    password: password
+
+logging:
+  level:
+    com.netflix.eureka: false
+    com.netflix.discovery: false
+
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+

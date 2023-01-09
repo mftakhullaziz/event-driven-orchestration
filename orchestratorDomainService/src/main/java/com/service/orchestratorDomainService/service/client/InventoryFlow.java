@@ -1,0 +1,81 @@
+package com.service.orchestratorDomainService.service.client;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.service.domainPersistence.enumerate.InventoryStatusEnum;
+import com.service.domainPersistence.payload.inventory.InventoryRequest;
+import com.service.domainPersistence.payload.inventory.InventoryResponse;
+import com.service.orchestratorDomainService.service.workflowGateway.WorkflowStep;
+import com.service.orchestratorDomainService.service.workflowGateway.WorkflowStepStatus;
+import lombok.SneakyThrows;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
+public class InventoryFlow implements WorkflowStep {
+
+    private final WebClient webClient;
+    private final InventoryRequest request;
+    private WorkflowStepStatus stepStatus = WorkflowStepStatus.PENDING;
+
+    public InventoryFlow(WebClient webClient, InventoryRequest request) {
+        this.webClient = webClient;
+        this.request = request;
+    }
+
+    @Override
+    public WorkflowStepStatus getStatus() {
+        return this.stepStatus;
+    }
+
+    @SneakyThrows
+    @Override
+    public Mono<Boolean> process() {
+        Mono<InventoryResponse> test = webClient
+                .post()
+                .uri("/inventory/deductProductAmount")
+                .body(BodyInserters.fromValue(request))
+                .retrieve()
+                .bodyToMono(InventoryResponse.class);
+
+        Mono<Boolean> booleanMono = test.map(
+                m -> {
+                    String status = m.getStatus();
+                    System.out.println("Status = " + status);
+                    String avail = String.valueOf(InventoryStatusEnum.AVAILABLE);
+                    System.out.println("Avail = " + avail);
+                    return status.contains(avail);
+                }
+        ).doOnNext(b -> stepStatus = b ? WorkflowStepStatus.COMPLETE : WorkflowStepStatus.FAILED);
+
+        System.out.println("Z " + new ObjectMapper().writeValueAsString(test.toProcessor().block()));
+        System.out.println("B " + new ObjectMapper().writeValueAsString(booleanMono.toProcessor().block()));
+
+        return booleanMono;
+
+//        Boolean bool = test.toProcessor().block();
+//        System.out.println("Bool " + bool);
+//
+//        return test;
+//        return webClient
+//                .post()
+//                .uri("/inventory/deductProductAmount")
+//                .body(BodyInserters.fromValue(request))
+//                .retrieve()
+//                .bodyToMono(InventoryResponse.class)
+//                .map(r -> r.getStatus().equals(InventoryStatusEnum.AVAILABLE))
+//                .doOnNext(b -> stepStatus = b ?
+//                        WorkflowStepStatus.COMPLETE : WorkflowStepStatus.FAILED);
+    }
+
+    @Override
+    public Mono<Boolean> revert() {
+        return this.webClient
+                    .post()
+                    .uri("/inventory/updateProductAmount")
+                    .body(BodyInserters.fromValue(request))
+                    .retrieve()
+                    .bodyToMono(Void.class)
+                    .map(r ->true)
+                    .onErrorReturn(false);
+    }
+}
