@@ -17,7 +17,9 @@
     Spring cloud service :
     springCloudServer = http://localhost:8761
     swaggerUIDocsServer = http://localhost:9093
-
+    
+    All endpoint service streaming on :
+    URL : http://localhost:9093/swagger-ui/index.html?
     
     Docker Requirement : 
     Docker & Postgresql
@@ -49,3 +51,5 @@
        saga-orchestration$~: mvn clean install
     4. Run all service
     5. Request API from Postman or other
+
+    Saga Orchestrator Pattern :

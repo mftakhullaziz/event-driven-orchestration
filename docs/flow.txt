@@ -1,0 +1,5 @@
+flow :
+1. create order
+2. get from total product existing
+3. if order success doing a payment service
+4. if payment success status order complete and notification to email service
