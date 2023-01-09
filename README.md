@@ -1,28 +1,40 @@
-    Requirement :
+## Event-Driven Saga Orchestration
+   
+    Author : Miftakhul Aziz
+    Github : https://github.com/mftakhullaziz
+   
+   Dependency requirement :
+    
     Spring WebFlux
-    R2DBC Postgres
+    R2DBC Postgres (Non-Blocking Database)
     Spring Cloud Stream
     Project Reactor
-    Spring Cloud Eureka
+    Spring Cloud Eureka Server
+    Spring Cloud Eureka Client
     SpringFox-UI
+    Spring Kafka
+    Lombok
 
-
-    Spring webflux service :
+   Spring webflux service :
+    
     inventoryService = http://localhost:8090
     orderService = http://localhost:8000
     orchestratorDomainService = http://localhost:5000
     paymentService = http://localhost:9002
     emailService = http://localhost:9003
     
-    Spring cloud service :
+   Spring cloud service :
+    
     springCloudServer = http://localhost:8761
     swaggerUIDocsServer = http://localhost:9093
     
     All endpoint service streaming on :
     URL : http://localhost:9093/swagger-ui/index.html?
     
-    Docker Requirement : 
-    Docker & Postgresql
+   Docker Requirement : 
+    
+   Postgresql
+    
     1. add postgres images
         $~: docker pull postgres
     2. create user authentication with postgres db on docker container
@@ -38,12 +50,13 @@
         To start container
         $~: docker start eventdriven-postgres
 
-    Kafka-Broker :
+   Kafka-Broker :
+    
     1. Run docker compose up in path kafka-broker:
         $~: docker compose up
 
-
-    How to use :
+   How to use :
+    
     1. Run Postgres database and migration query
     2. Run Kafka Broker
     3. Build all project reactor in default module 
@@ -52,6 +65,17 @@
     4. Run all service
     5. Request API from Postman or other
 
-    Saga Orchestrator Pattern :
-    ![OrchestratorSaga](https://github.com/mftakhullaziz/event-driven-orchestration-app/blob/main/docs/orchestration-saga.jpg)
+   Saga Orchestrator Pattern :
+   ![OrchestratorSaga](https://github.com/mftakhullaziz/event-driven-orchestration-app/blob/main/docs/orchestration-saga.jpg)
+   
+   Next updated :
+    
+    add payment service
+    add notification mail service
+    add consumer inventory
+    add consumer payment
+    add consumer notification email
+    
+   Happy coders:
+    
     
