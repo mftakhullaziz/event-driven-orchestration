@@ -50,6 +50,8 @@ public class OrderService implements OrderServiceGateway {
                     data.setOrderStatus(String.valueOf(OrderStatusEnum.ORDER_PROCESSED));
                     return repository.save(data)
                             .doOnNext(e -> request.setProductId(String.valueOf(e.getProductId())))
+                            .doOnNext(e -> request.setProductAmount(e.getProductAmount()))
+                            .doOnNext(e -> request.setProductPrice(e.getProductPrice()))
                             .doOnNext(e -> emitEvent(request));
                 });
     }

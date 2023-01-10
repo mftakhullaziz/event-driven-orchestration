@@ -8,9 +8,9 @@ import java.util.UUID;
 @Setter
 @Getter
 public class OrderResponse {
-    private Integer userId;
-    private UUID productId;
     private UUID orderId;
+    private UUID productId;
+    private UUID userId;
     private Double productPrice;
     private Double productAmount;
     private String orderStatus;
