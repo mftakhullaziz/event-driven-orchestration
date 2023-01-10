@@ -9,9 +9,14 @@ import java.util.UUID;
 @Setter
 @Getter
 @Data
-public class PaymentResponse {
+public class PaymentHistoricalResponse {
+
+    private UUID historyId;
     private UUID paymentId;
     private UUID userId;
-    private Double creditAmount;
-    private String creditStatus;
+    private UUID productId;
+    private UUID orderId;
+    private Double totalPaymentAmount;
+    private String paymentStatus;
+
 }

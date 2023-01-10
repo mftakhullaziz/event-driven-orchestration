@@ -10,9 +10,6 @@ import java.util.UUID;
 @Getter
 @Data
 public class PaymentRequest {
-    private Integer userId;
-    private Integer productId;
-    private UUID orderId;
-    private Double productAmount;
-    private Double productPrice;
+    private UUID userId;
+    private Double creditAmount;
 }
