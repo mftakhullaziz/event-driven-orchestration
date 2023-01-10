@@ -2,8 +2,6 @@ package com.service.inventoryService.controller;
 
 import com.service.domainPersistence.payload.inventory.InventoryRequest;
 import com.service.domainPersistence.payload.inventory.InventoryResponse;
-import com.service.domainPersistence.persistence.InventoryTRec;
-import com.service.inventoryService.service.InventoryService;
 import com.service.inventoryService.service.InventoryServiceGateway;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

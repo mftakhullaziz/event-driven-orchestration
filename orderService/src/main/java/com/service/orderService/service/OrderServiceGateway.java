@@ -1,10 +1,10 @@
 package com.service.orderService.service;
 
 import com.service.domainPersistence.payload.order.OrderRequest;
-import com.service.domainPersistence.persistence.OrderTRec;
+import com.service.domainPersistence.persistence.OrderEntity;
 import reactor.core.publisher.Mono;
 
 public interface OrderServiceGateway {
-    Mono<OrderTRec> createOrder(OrderRequest request);
-    Mono<OrderTRec> submitOrderProcess(OrderRequest request);
+    Mono<OrderEntity> createOrder(OrderRequest request);
+    Mono<OrderEntity> submitOrderProcess(OrderRequest request);
 }

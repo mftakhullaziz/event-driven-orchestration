@@ -2,7 +2,7 @@ package com.service.inventoryService.service;
 
 import com.service.domainPersistence.enumerate.InventoryStatusEnum;
 import com.service.domainPersistence.payload.inventory.InventoryRequest;
-import com.service.domainPersistence.persistence.InventoryTRec;
+import com.service.domainPersistence.persistence.InventoryEntity;
 import com.service.inventoryService.repository.InventoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,12 +17,12 @@ public class InventoryService implements InventoryServiceGateway {
     private final InventoryRepository repository;
 
     @Override
-    public Mono<InventoryTRec> createProductInventory(InventoryRequest request){
+    public Mono<InventoryEntity> createProductInventory(InventoryRequest request){
         return repository.save(builderOrder(request));
     }
 
-    private InventoryTRec builderOrder(InventoryRequest request) {
-        return InventoryTRec.builder()
+    private InventoryEntity builderOrder(InventoryRequest request) {
+        return InventoryEntity.builder()
                 .productName(request.getProductName())
                 .productPricePerUnit(request.getProductPrice())
                 .productAmount(request.getProductAmount())
@@ -31,7 +31,7 @@ public class InventoryService implements InventoryServiceGateway {
     }
 
     @Override
-    public Mono<InventoryTRec> addInventory(InventoryRequest request) {
+    public Mono<InventoryEntity> addInventory(InventoryRequest request) {
         Double amount = request.getProductAmount();
         return repository.findById(UUID.fromString(request.getProductId()))
                 .flatMap(data -> {
@@ -44,7 +44,7 @@ public class InventoryService implements InventoryServiceGateway {
     }
 
     @Override
-    public Mono<InventoryTRec> deductInventory(InventoryRequest request) {
+    public Mono<InventoryEntity> deductInventory(InventoryRequest request) {
         return repository.findById(UUID.fromString(request.getProductId()))
                 .flatMap(data -> {
                             Double amount = request.getProductAmount();

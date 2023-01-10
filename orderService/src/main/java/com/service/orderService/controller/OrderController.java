@@ -2,8 +2,6 @@ package com.service.orderService.controller;
 
 import com.service.domainPersistence.payload.order.OrderRequest;
 import com.service.domainPersistence.payload.order.OrderResponse;
-import com.service.domainPersistence.persistence.OrderTRec;
-import com.service.orderService.service.OrderService;
 import com.service.orderService.service.OrderServiceGateway;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -11,4 +11,17 @@
 	<properties>
 		<spring-boot.repackage.skip>true</spring-boot.repackage.skip>
 	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.eventdrivenOrchestration</groupId>
+			<artifactId>domainPersistence</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Eureka Client -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+	</dependencies>
 </project>

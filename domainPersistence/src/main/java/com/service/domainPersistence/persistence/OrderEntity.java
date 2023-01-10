@@ -13,24 +13,26 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "inventory_products")
-public class InventoryTRec {
-
+@Table(name = "orders")
+public class OrderEntity {
     @Id
+    @Column(value = "order_id")
+    private UUID orderId;
+
+    @Column(value = "user_id")
+    private UUID userId;
+
     @Column(value = "product_id")
     private UUID productId;
 
-    @Column(value = "product_name")
-    private String productName;
-
-    @Column(value = "product_price_per_unit")
-    private Double productPricePerUnit;
+    @Column(value = "product_price")
+    private Double productPrice;
 
     @Column(value = "product_amount")
     private Double productAmount;
 
-    @Column(value = "product_status")
-    private String productStatus;
+    @Column(value = "order_status")
+    private String orderStatus;
 
     @Column(value = "date_index")
     private Integer dateIndex;
@@ -46,4 +48,5 @@ public class InventoryTRec {
 
     @Column(value = "last_updated_by")
     private String lastUpdatedBy;
+
 }

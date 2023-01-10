@@ -13,26 +13,21 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "orders")
-public class OrderTRec {
+@Table(name = "payments_table")
+public class PaymentEntity {
+
     @Id
-    @Column(value = "order_id")
-    private UUID orderId;
+    @Column(value = "payment_id")
+    private UUID paymentId;
 
     @Column(value = "user_id")
     private UUID userId;
 
-    @Column(value = "product_id")
-    private UUID productId;
+    @Column(value = "credit_amount")
+    private Double creditAmount;
 
-    @Column(value = "product_price")
-    private Double productPrice;
-
-    @Column(value = "product_amount")
-    private Double productAmount;
-
-    @Column(value = "order_status")
-    private String orderStatus;
+    @Column(value = "credit_status")
+    private String creditStatus;
 
     @Column(value = "date_index")
     private Integer dateIndex;

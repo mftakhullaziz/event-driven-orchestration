@@ -3,7 +3,7 @@ package com.service.orderService.service;
 import com.service.domainPersistence.enumerate.OrderStatusEnum;
 import com.service.domainPersistence.payload.orchestrator.OrchestratorRequest;
 import com.service.domainPersistence.payload.order.OrderRequest;
-import com.service.domainPersistence.persistence.OrderTRec;
+import com.service.domainPersistence.persistence.OrderEntity;
 import com.service.orderService.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -25,15 +25,15 @@ public class OrderService implements OrderServiceGateway {
     }
 
     @Override
-    public Mono<OrderTRec> createOrder(OrderRequest request){
+    public Mono<OrderEntity> createOrder(OrderRequest request){
         return repository.save(builderOrder(request));
     }
 
-    private OrderTRec builderOrder(OrderRequest request) {
+    private OrderEntity builderOrder(OrderRequest request) {
         UUID uuidUser = UUID.randomUUID();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         LocalDateTime dateTime = LocalDateTime.now();
-        return OrderTRec.builder()
+        return OrderEntity.builder()
                 .userId(uuidUser)
                 .productPrice(request.getProductPrice())
                 .productId(UUID.fromString(request.getProductId()))
@@ -44,7 +44,7 @@ public class OrderService implements OrderServiceGateway {
     }
 
     @Override
-    public Mono<OrderTRec> submitOrderProcess(OrderRequest request){
+    public Mono<OrderEntity> submitOrderProcess(OrderRequest request){
         return repository.findById(request.getOrderId())
                 .flatMap(data -> {
                     data.setOrderStatus(String.valueOf(OrderStatusEnum.ORDER_PROCESSED));
