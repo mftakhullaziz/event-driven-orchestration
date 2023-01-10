@@ -15,7 +15,7 @@ spring.cloud.stream:
 
 service:
   endpoints:
-    inventory: http://localhost:9001
+    inventory: http://localhost:8090
 #    payment: http://localhost:8082
 
 spring:

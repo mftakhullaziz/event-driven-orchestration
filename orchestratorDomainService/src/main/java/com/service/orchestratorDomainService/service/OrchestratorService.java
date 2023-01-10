@@ -22,10 +22,6 @@ import java.util.stream.Stream;
 @Service
 public class OrchestratorService {
 
-//    @Autowired
-//    @Qualifier("payment")
-//    private WebClient paymentClient;
-
     private final WebClient inventoryClient;
 
     public OrchestratorService(@Qualifier("inventory") WebClient inventoryClient) {
@@ -35,16 +31,13 @@ public class OrchestratorService {
     @SneakyThrows
     public Mono<OrchestratorResponse> orderProduct(OrchestratorRequest requestDTO){
         Workflow orderWorkflow = getOrderWorkflow(requestDTO);
-        System.out.println("orchestratorRequest" + new ObjectMapper().writeValueAsString(requestDTO));
-
         return Flux.fromStream(() -> orderWorkflow.getSteps().stream())
                 .flatMap(WorkflowStep::process)
                 .handle(((aBoolean, synchronousSink) -> {
-                    System.out.println("Boolean Order = " + aBoolean);
                     if (aBoolean) {
                         synchronousSink.next(true);
                     } else {
-                        synchronousSink.error(new WorkflowException("create order failed!"));
+                        synchronousSink.error(new WorkflowException("Processed order failed!"));
                     }
                 }))
                 .then(Mono.fromCallable(() -> getResponseDTO(requestDTO, OrderStatusEnum.ORDER_COMPLETED)))
@@ -52,10 +45,7 @@ public class OrchestratorService {
     }
 
     private Mono<OrchestratorResponse> revertOrder(Workflow workflow, OrchestratorRequest requestDTO){
-        System.out.println("revertOrdered");
-        return Flux.fromStream(() ->
-                        workflow.getSteps()
-                                .stream())
+        return Flux.fromStream(() -> workflow.getSteps().stream())
                 .filter(wf -> wf.getStatus().equals(WorkflowStepStatus.COMPLETE))
                 .flatMap(WorkflowStep::revert)
                 .retry(5)
@@ -66,8 +56,6 @@ public class OrchestratorService {
     private Workflow getOrderWorkflow(OrchestratorRequest requestDTO){
 //        WorkflowStep paymentStep = new PaymentStep(paymentClient, getPaymentRequestDTO(requestDTO));
         WorkflowStep inventoryStep = new InventoryFlow(inventoryClient, getInventoryRequestDTO(requestDTO));
-        System.out.println("==> RequestInventory " + new ObjectMapper().writeValueAsString(getInventoryRequestDTO(requestDTO)));
-        System.out.println("==> InventoryStep " + new ObjectMapper().writeValueAsString(inventoryStep));
         return new OrderWorkflow(List.of(inventoryStep));
     }
 

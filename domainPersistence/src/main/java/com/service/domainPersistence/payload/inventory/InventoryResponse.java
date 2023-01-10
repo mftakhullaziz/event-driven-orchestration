@@ -10,9 +10,7 @@ import java.util.UUID;
 @Getter
 @Data
 public class InventoryResponse {
-    private Integer userId;
-    private Integer productId;
-    private UUID orderId;
+    private UUID productId;
     private Double productAmount;
     private Double productPrice;
     private String status;

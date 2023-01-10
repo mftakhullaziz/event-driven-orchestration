@@ -30,41 +30,18 @@ public class InventoryFlow implements WorkflowStep {
     @SneakyThrows
     @Override
     public Mono<Boolean> process() {
-        Mono<InventoryResponse> test = webClient
+        return  webClient
                 .post()
                 .uri("/inventory/deductProductAmount")
                 .body(BodyInserters.fromValue(request))
                 .retrieve()
-                .bodyToMono(InventoryResponse.class);
-
-        Mono<Boolean> booleanMono = test.map(
-                m -> {
+                .bodyToMono(InventoryResponse.class)
+                .map(m -> {
                     String status = m.getStatus();
-                    System.out.println("Status = " + status);
-                    String avail = String.valueOf(InventoryStatusEnum.AVAILABLE);
-                    System.out.println("Avail = " + avail);
-                    return status.contains(avail);
-                }
-        ).doOnNext(b -> stepStatus = b ? WorkflowStepStatus.COMPLETE : WorkflowStepStatus.FAILED);
-
-        System.out.println("Z " + new ObjectMapper().writeValueAsString(test.toProcessor().block()));
-        System.out.println("B " + new ObjectMapper().writeValueAsString(booleanMono.toProcessor().block()));
-
-        return booleanMono;
-
-//        Boolean bool = test.toProcessor().block();
-//        System.out.println("Bool " + bool);
-//
-//        return test;
-//        return webClient
-//                .post()
-//                .uri("/inventory/deductProductAmount")
-//                .body(BodyInserters.fromValue(request))
-//                .retrieve()
-//                .bodyToMono(InventoryResponse.class)
-//                .map(r -> r.getStatus().equals(InventoryStatusEnum.AVAILABLE))
-//                .doOnNext(b -> stepStatus = b ?
-//                        WorkflowStepStatus.COMPLETE : WorkflowStepStatus.FAILED);
+                    String availableProduct = String.valueOf(InventoryStatusEnum.AVAILABLE);
+                    return status.contains(availableProduct);
+                }).doOnNext(b -> stepStatus = b ?
+                        WorkflowStepStatus.COMPLETE : WorkflowStepStatus.FAILED);
     }
 
     @Override

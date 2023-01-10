@@ -12,10 +12,11 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class InventoryService {
+public class InventoryService implements InventoryServiceGateway {
 
     private final InventoryRepository repository;
 
+    @Override
     public Mono<InventoryTRec> createProductInventory(InventoryRequest request){
         return repository.save(builderOrder(request));
     }
@@ -29,24 +30,23 @@ public class InventoryService {
                 .build();
     }
 
+    @Override
     public Mono<InventoryTRec> addInventory(InventoryRequest request) {
         Double amount = request.getProductAmount();
         return repository.findById(UUID.fromString(request.getProductId()))
-                .flatMap(
-                        data -> {
+                .flatMap(data -> {
                             Double currentAmount = data.getProductAmount();
                             // add total new amount
                             Double updateAmount = amount + currentAmount;
                             data.setProductAmount(updateAmount);
                             return repository.save(data);
-                        }
-                );
+                });
     }
 
+    @Override
     public Mono<InventoryTRec> deductInventory(InventoryRequest request) {
         return repository.findById(UUID.fromString(request.getProductId()))
-                .flatMap(
-                        data -> {
+                .flatMap(data -> {
                             Double amount = request.getProductAmount();
                             Double currentAmount = data.getProductAmount();
                             Double updateAmount = currentAmount - amount;
@@ -58,8 +58,7 @@ public class InventoryService {
                                 data.setProductStatus(String.valueOf(InventoryStatusEnum.AVAILABLE));
                             }
                             return repository.save(data);
-                        }
-                );
+                });
     }
 
 }
