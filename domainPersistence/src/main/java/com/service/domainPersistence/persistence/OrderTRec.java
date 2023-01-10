@@ -20,7 +20,7 @@ public class OrderTRec {
     private UUID orderId;
 
     @Column(value = "user_id")
-    private Integer userId;
+    private UUID userId;
 
     @Column(value = "product_id")
     private UUID productId;

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.Sinks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Service
@@ -28,12 +30,16 @@ public class OrderService implements OrderServiceGateway {
     }
 
     private OrderTRec builderOrder(OrderRequest request) {
+        UUID uuidUser = UUID.randomUUID();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        LocalDateTime dateTime = LocalDateTime.now();
         return OrderTRec.builder()
-                .userId(request.getUserId())
+                .userId(uuidUser)
                 .productPrice(request.getProductPrice())
                 .productId(UUID.fromString(request.getProductId()))
                 .productAmount(request.getProductAmount())
                 .orderStatus(String.valueOf(OrderStatusEnum.ORDER_CREATED))
+                .dateIndex(Integer.valueOf(formatter.format(dateTime)))
                 .build();
     }
 
