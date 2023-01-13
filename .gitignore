@@ -10,6 +10,7 @@
 .idea/jsLibraryMappings.xml
 .idea/*.xml
 .idea/.gitignore
+.idea/*
 
 # Sensitive or high-churn files:
 .idea/dataSources.ids
@@ -54,4 +55,4 @@ fabric.properties
 # .idea/misc.xml
 # *.ipr
 
-saga-orchestration.iml
+*.iml
