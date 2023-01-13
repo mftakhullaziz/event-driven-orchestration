@@ -17,19 +17,19 @@
 
    Spring webflux service :
     
-    inventoryService = http://localhost:8090
-    orderService = http://localhost:8000
-    orchestratorDomainService = http://localhost:5000
-    paymentService = http://localhost:9002
-    emailService = http://localhost:9003
+    emailService = http://localhost:8081
+    inventoryService = http://localhost:8082
+    orderService = http://localhost:8083
+    paymentService = http://localhost:8084
+    orchestratorDomainService = http://localhost:8085
     
    Spring cloud service :
     
     springCloudServer = http://localhost:8761
-    swaggerUIDocsServer = http://localhost:9093
+    swaggerUIDocsServer = http://localhost:8000
     
     All endpoint service streaming on :
-    URL : http://localhost:9093/swagger-ui/index.html?
+    URL : http://localhost:8000/swagger-ui/index.html?
     
    Docker Requirement : 
     

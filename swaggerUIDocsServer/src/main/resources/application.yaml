@@ -1,7 +1,9 @@
 server:
-  port: 9093
+  port: 8000
 
 spring:
+  application:
+    name: documentation-swagger-app
   r2dbc:
     url: r2dbc:postgresql://localhost:5432/postgres
     username: user
@@ -9,7 +11,7 @@ spring:
 
 eureka:
   instance:
-    appname: docs-application
+    appname: documentation-swagger-app
   client:
     enabled: true
     register-with-eureka: true

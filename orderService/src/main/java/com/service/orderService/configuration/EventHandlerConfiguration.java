@@ -13,12 +13,12 @@ import java.util.function.Supplier;
 
 @Slf4j
 @Configuration
-public class EventHandler {
+public class EventHandlerConfiguration {
 
     private final Flux<OrchestratorRequest> flux;
     private final OrderEventService service;
 
-    public EventHandler(Flux<OrchestratorRequest> flux, OrderEventService service) {
+    public EventHandlerConfiguration(Flux<OrchestratorRequest> flux, OrderEventService service) {
         this.flux = flux;
         this.service = service;
     }
