@@ -28,14 +28,16 @@ public class PaymentService implements PaymentServiceGateway{
     public Mono<PaymentEntity> createCreditUser(PaymentRequest request) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         LocalDateTime dateTime = LocalDateTime.now();
-        return paymentRepository.save(
+        return Mono.from(paymentRepository.save(
                 PaymentEntity.builder()
                         .userId(request.getUserId())
+                        .creditName(request.getCreditName())
+                        .creditNumber(request.getCreditNumber())
                         .creditAmount(request.getCreditAmount())
                         .dateIndex(Integer.valueOf(formatter.format(dateTime)))
                         .creditStatus(String.valueOf(PaymentStatusEnum.CREDIT_ACTIVATE))
                         .build()
-        );
+        ).switchIfEmpty(Mono.empty()));
     }
 
     @Override
