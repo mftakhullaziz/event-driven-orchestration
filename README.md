@@ -68,6 +68,10 @@
    Saga Orchestrator Pattern :
    ![OrchestratorSaga](https://github.com/mftakhullaziz/event-driven-orchestration-app/blob/main/docs/orchestration-saga.jpg)
    
+   Spring Cloud Eureka :
+   ![SpringCloud](https://github.com/mftakhullaziz/event-driven-orchestration-app/blob/main/docs/spring-cloud.png)
+   
+
    Next updated :
     
     add payment service
