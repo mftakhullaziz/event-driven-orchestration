@@ -10,6 +10,8 @@
         <module>inventoryService</module>
         <module>paymentService</module>
         <module>emailService</module>
+        <module>springCloudServer</module>
+        <module>swaggerUIDocsServer</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
