@@ -1,5 +1,6 @@
 SHELL=/bin/bash
 HOME := $(shell pwd)
+KAFKA_BROKER := $(HOME)/kafka-broker
 
 build/email-srv:
 	mvn -pl :emailService -am clean install -Dmaven.test.skip=true
@@ -55,3 +56,11 @@ buildRun/orchestrator-srv: build/orchestrator-srv run/orchestrator-srv
 buildRun/spring-cloud-srv: build/spring-cloud-srv run/spring-cloud-srv
 buildRun/swagger-ui-srv: build/swagger-ui-srv run/swagger-ui-srv
 
+start-postgres:
+	docker start eventdriven-postgres
+stop-postgres:
+	docker stop eventdriven-postgres
+
+kafka:
+	pushd ${KAFKA_BROKER} > /dev/null && \
+	docker compose up
