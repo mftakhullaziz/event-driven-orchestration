@@ -1,4 +1,4 @@
-create table orders (
+create table order_table (
     order_id uuid primary key default uuid_generate_v4(),
     user_id int8 default null,
     product_id uuid,

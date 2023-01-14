@@ -1,4 +1,4 @@
-create table inventory_products (
+create table inventory_table (
     product_id uuid primary key default uuid_generate_v4(),
     product_name varchar(20) default null,
     product_price_per_unit double precision default null,
