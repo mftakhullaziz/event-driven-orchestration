@@ -1,8 +1,9 @@
 ## Event-Driven Saga Orchestration
    
-    Author : Miftakhul Aziz
-    Github : https://github.com/mftakhullaziz
+   author : @miftakhul_aziz
+   github : https://github.com/mftakhullaziz
    
+
    Dependency requirement :
     
     Spring WebFlux
