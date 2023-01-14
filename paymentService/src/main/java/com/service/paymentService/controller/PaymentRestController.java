@@ -4,7 +4,6 @@ import com.service.domainPersistence.payload.payment.PaymentRequest;
 import com.service.domainPersistence.payload.payment.PaymentResponse;
 import com.service.paymentService.service.PaymentServiceGateway;
 import io.swagger.annotations.Api;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,10 +37,38 @@ public class PaymentRestController {
         ).switchIfEmpty(Mono.empty()));
     }
 
-}
+    @PostMapping(value = "addCreditBalance")
+    public Mono<PaymentResponse> addCreditBalance(@Valid @RequestBody PaymentRequest paymentRequest) {
+        PaymentResponse response = new PaymentResponse();
+        return Mono.from(gateway.addCreditUser(paymentRequest).flatMap(
+                res -> {
+                    response.setPaymentId(res.getPaymentId());
+                    response.setUserId(res.getUserId());
+                    response.setCreditName(res.getCreditName());
+                    response.setCreditNumber(res.getCreditNumber());
+                    response.setCreditAmount(res.getCreditAmount());
+                    response.setCreditStatus(res.getCreditStatus());
+                    return Mono.just(response);
+                }
+        ).switchIfEmpty(Mono.empty()));
+    }
 
-// create payment credit balance
-// update payment credit balance
-// deduct payment credit balance
+    @PostMapping(value = "deductCreditBalance")
+    public Mono<PaymentResponse> deductCreditBalance(@Valid @RequestBody PaymentRequest paymentRequest) {
+        PaymentResponse response = new PaymentResponse();
+        return Mono.from(gateway.deductCreditUser(paymentRequest).flatMap(
+                res -> {
+                    response.setPaymentId(res.getPaymentId());
+                    response.setUserId(res.getUserId());
+                    response.setCreditName(res.getCreditName());
+                    response.setCreditNumber(res.getCreditNumber());
+                    response.setCreditAmount(res.getCreditAmount());
+                    response.setCreditStatus(res.getCreditStatus());
+                    return Mono.just(response);
+                }
+        ).switchIfEmpty(Mono.empty()));
+    }
+
+}
 
 // create payment historical data with status payment approved or not

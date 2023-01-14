@@ -41,21 +41,35 @@ public class PaymentService implements PaymentServiceGateway{
     }
 
     @Override
-    public Mono<PaymentEntity> updateCreditUser(PaymentRequest request) {
-        return paymentRepository.findById(request.getPaymentId())
+    public Mono<PaymentEntity> addCreditUser(PaymentRequest request) {
+        return Mono.from(paymentRepository.findById(request.getPaymentId())
                 .flatMap(data -> {
                     Double currentAmount = data.getCreditAmount();
                     double updatedAmount = currentAmount + request.getCreditAmount();
-                    if (updatedAmount < 0) data.setCreditStatus(String.valueOf(PaymentStatusEnum.CREDIT_DEACTIVATE));
+                    if (updatedAmount < 0) data.setCreditStatus(String.valueOf(
+                            PaymentStatusEnum.CREDIT_DEACTIVATE));
                     else data.setCreditStatus(String.valueOf(PaymentStatusEnum.CREDIT_ACTIVATE));
                     data.setCreditAmount(updatedAmount);
                     return paymentRepository.save(data);
-                });
+                }));
+    }
+
+    @Override
+    public Mono<PaymentEntity> deductCreditUser(PaymentRequest request) {
+        return Mono.from(paymentRepository.findById(request.getPaymentId())
+                .flatMap(data -> {
+                    Double currentAmount = data.getCreditAmount();
+                    double updatedAmount = currentAmount - request.getCreditAmount();
+                    if (updatedAmount < 0) data.setCreditStatus(String.valueOf(
+                            PaymentStatusEnum.CREDIT_DEACTIVATE));
+                    else data.setCreditStatus(String.valueOf(PaymentStatusEnum.CREDIT_ACTIVATE));
+                    data.setCreditAmount(updatedAmount);
+                    return paymentRepository.save(data);
+                }));
     }
 
     @Override
     public Mono<PaymentHistoricalEntity> createUpdateCreditFromTransaction(PaymentHistoricalRequest request) {
-
         return null;
     }
 }

@@ -8,6 +8,7 @@ import reactor.core.publisher.Mono;
 
 public interface PaymentServiceGateway {
     Mono<PaymentEntity> createCreditUser(PaymentRequest request);
-    Mono<PaymentEntity> updateCreditUser(PaymentRequest request);
+    Mono<PaymentEntity> addCreditUser(PaymentRequest request);
+    Mono<PaymentEntity> deductCreditUser(PaymentRequest request);
     Mono<PaymentHistoricalEntity> createUpdateCreditFromTransaction(PaymentHistoricalRequest request);
 }
