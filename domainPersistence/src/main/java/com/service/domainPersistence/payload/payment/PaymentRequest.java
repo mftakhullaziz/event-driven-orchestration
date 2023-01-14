@@ -12,5 +12,7 @@ import java.util.UUID;
 public class PaymentRequest {
     private UUID paymentId;
     private UUID userId;
+    private String creditName;
+    private Integer creditNumber;
     private Double creditAmount;
 }

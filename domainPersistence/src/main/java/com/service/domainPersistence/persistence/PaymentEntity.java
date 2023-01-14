@@ -23,6 +23,12 @@ public class PaymentEntity {
     @Column(value = "user_id")
     private UUID userId;
 
+    @Column(value = "credit_name")
+    private String creditName;
+
+    @Column(value = "credit_number")
+    private Integer creditNumber;
+
     @Column(value = "credit_amount")
     private Double creditAmount;
 
