@@ -19,6 +19,8 @@ service:
 #    payment: http://localhost:8082
 
 spring:
+  application:
+    name: orchestrator-domain-service-app
   r2dbc:
     url: r2dbc:postgresql://localhost:5432/postgres
     username: user
