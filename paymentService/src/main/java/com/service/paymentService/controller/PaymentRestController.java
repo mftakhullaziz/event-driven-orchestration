@@ -3,6 +3,8 @@ package com.service.paymentService.controller;
 import com.service.domainPersistence.payload.payment.PaymentRequest;
 import com.service.domainPersistence.payload.payment.PaymentResponse;
 import com.service.paymentService.service.PaymentServiceGateway;
+import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +15,7 @@ import reactor.core.publisher.Mono;
 import javax.validation.Valid;
 
 @RestController
+@Api(tags = "Payment Rest API")
 @RequestMapping(value = "payment")
 @RequiredArgsConstructor
 public class PaymentRestController {
