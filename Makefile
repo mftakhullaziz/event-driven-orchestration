@@ -50,7 +50,7 @@ buildInstall/parent-module:
 
 buildRun/email-srv: build/email-srv run/email-srv
 buildRun/inventory-srv: build/inventory-srv run/inventory-srv
-buildRun/email-srv: build/order-srv run/order-srv
+buildRun/order-srv: build/order-srv run/order-srv
 buildRun/payment-srv: build/payment-srv run/payment-srv
 buildRun/orchestrator-srv: build/orchestrator-srv run/orchestrator-srv
 buildRun/spring-cloud-srv: build/spring-cloud-srv run/spring-cloud-srv

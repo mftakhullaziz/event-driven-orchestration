@@ -11,7 +11,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("inventory")
-@CrossOrigin(origins = "http://localhost:9093")
+@CrossOrigin(origins = "http://localhost:8000")
 @RequiredArgsConstructor
 public class InventoryRestController {
 

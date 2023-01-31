@@ -26,7 +26,7 @@ public class OrchestratorConfig {
         return flux -> flux
                 .flatMap(orchestratorService::orderProduct)
                 .doOnNext(response ->
-                        log.info("\nMESSAGE : ORDER STATUS WITH"
+                        log.info("\nMESSAGE :: ORDER STATUS WITH"
                                 + " ORDER_ID = " + response.getOrderId()
                                 + " AND" + " PRODUCT_ID = " + response.getProductId()
                                 + " STATUS ORDER = " + response.getOrderStatus()));

@@ -12,6 +12,7 @@ spring:
 eureka:
   instance:
     appname: documentation-swagger-app
+    prefer-ip-address: true
   client:
     enabled: true
     register-with-eureka: true

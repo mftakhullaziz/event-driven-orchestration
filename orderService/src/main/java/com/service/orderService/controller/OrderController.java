@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 import javax.validation.Valid;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:9093")
+@CrossOrigin(origins = "http://localhost:8000")
 public class OrderController {
 
     private final OrderServiceGateway service;
