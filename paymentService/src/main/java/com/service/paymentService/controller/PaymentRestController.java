@@ -58,12 +58,12 @@ public class PaymentRestController {
         PaymentResponse response = new PaymentResponse();
         return Mono.from(gateway.deductCreditUser(paymentRequest).flatMap(
                 res -> {
-                    response.setPaymentId(res.getPaymentId());
-                    response.setUserId(res.getUserId());
-                    response.setCreditName(res.getCreditName());
-                    response.setCreditNumber(res.getCreditNumber());
-                    response.setCreditAmount(res.getCreditAmount());
-                    response.setCreditStatus(res.getCreditStatus());
+                    response.setPaymentId(res.getT1().getPaymentId());
+                    response.setUserId(res.getT1().getUserId());
+                    response.setCreditName(res.getT1().getCreditName());
+                    response.setCreditNumber(res.getT1().getCreditNumber());
+                    response.setCreditAmount(res.getT1().getCreditAmount());
+                    response.setCreditStatus(res.getT1().getCreditStatus());
                     return Mono.just(response);
                 }
         ).switchIfEmpty(Mono.empty()));

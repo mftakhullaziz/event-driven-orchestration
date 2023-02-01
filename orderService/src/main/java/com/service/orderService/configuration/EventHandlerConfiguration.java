@@ -31,7 +31,7 @@ public class EventHandlerConfiguration {
     @Bean
     public Consumer<Flux<OrchestratorResponse>> consumer(){
         return f -> f
-                .doOnNext(c -> System.out.println("CONSUMER MESSAGE :: " + c))
+                .doOnNext(c -> System.out.println("\nCONSUMER MESSAGE :: " + c))
                 .flatMap(service::orderEventProcess)
                 .subscribe();
     };

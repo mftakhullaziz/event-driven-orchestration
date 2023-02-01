@@ -17,7 +17,7 @@ import java.util.UUID;
 public class PaymentHistoricalEntity {
 
     @Id
-    @Column(value = "payment_historical_id")
+    @Column(value = "payment_history_id")
     private UUID paymentHistoricalId;
 
     @Column(value = "payment_id")
@@ -32,8 +32,14 @@ public class PaymentHistoricalEntity {
     @Column(value = "order_id")
     private UUID orderId;
 
-    @Column(value = "total_payment_amount")
-    private Double totalPaymentAmount;
+    @Column(value = "credit_balance")
+    private Double creditBalance;
+
+    @Column(value = "remaining_balance")
+    private Double remainingBalance;
+
+    @Column(value = "payment_amount")
+    private Double paymentAmount;
 
     @Column(value = "payment_status")
     private String paymentStatus;
